@@ -1,6 +1,28 @@
-# Welcome to your Expo app 👋
+# The Coffee Atlas ☕
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+An in-depth reference app — and website — covering coffee's growing origins, botanical species,
+processing methods, roasting, brewing, history, and terminology. Built with
+[Expo Router](https://docs.expo.dev/router/introduction/), so the same codebase runs on iOS,
+Android, and the web.
+
+## What's inside
+
+- **Growing Origins** — 13 countries/regions (Ethiopia, Yemen, Kenya, Rwanda & Burundi, Brazil,
+  Colombia, Guatemala, Costa Rica, Panama, Indonesia, Vietnam, Papua New Guinea, Jamaica), each with
+  altitude, harvest window, primary process, notable varieties, tasting notes, and history.
+- **Species & Varieties** — Arabica, Robusta, Liberica, and Excelsa, with characteristics and
+  notable cultivars (Bourbon, Typica, Geisha, SL28, and more).
+- **Processing Methods** — washed, natural, honey, wet-hulled (Giling Basah), and anaerobic
+  fermentation, with step-by-step breakdowns and flavor impact.
+- **Roasting** — light/medium/dark roast profiles and the roast-chemistry timeline from drying
+  through first and second crack.
+- **Brewing Guide** — 7 methods (espresso, pour-over, French press, AeroPress, moka pot, cold brew,
+  Turkish, siphon) with grind size, ratio, water temperature, steps, and tips.
+- **History** — a timeline from the legend of Kaldi through third-wave specialty coffee.
+- **Glossary** — a searchable list of coffee terminology.
+
+All content lives in [`constants/coffee-data.ts`](./constants/coffee-data.ts) as plain, typed data —
+edit it to add origins, brew methods, or glossary terms without touching any screen code.
 
 ## Get started
 
@@ -16,35 +38,26 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+   Press `w` to open it as a website in your browser, or scan the QR code with Expo Go on
+   iOS/Android.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+3. Build the static website
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+   ```bash
+   npx expo export -p web
+   ```
 
-## Get a fresh project
+   This outputs a deployable static site to `dist/`.
 
-When you're ready, run:
+## Project structure
 
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- `app/(tabs)/` — the four tab screens: Home, Origins, Brew Guide, Glossary
+- `app/origins/[id].tsx`, `app/brewing/[id].tsx` — dynamic detail pages
+- `app/species.tsx`, `app/processing.tsx`, `app/roasting.tsx`, `app/history.tsx` — deep-dive pages
+- `constants/coffee-data.ts` — all coffee content and TypeScript types
+- `components/nav-card.tsx` — reusable link card used on the home screen
 
 ## Learn more
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [Expo documentation](https://docs.expo.dev/)
+- [Expo Router](https://docs.expo.dev/router/introduction/)
