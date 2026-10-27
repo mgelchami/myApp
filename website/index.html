@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>mostapha.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: dark "secure console" world. Hero pairs the promise with a live-looking tenant review panel; sections stack on a 1120px column. Single dark theme by choice (brand is dark). */
+:root{
+  --ink:#0b1022;        /* page ground */
+  --deep:#121a36;       /* raised surfaces */
+  --line:#24305c;       /* hairlines */
+  --text:#eef1fb;       /* primary text */
+  --muted:#a3acd0;      /* secondary text */
+  --blue:#4aa8ff;       /* brand blue */
+  --mint:#4cd3a5;       /* the dot, "secure" */
+  --amber:#ffb547;      /* review */
+  --rose:#ff7a85;       /* action */
+  --display:"Sora","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --body:"IBM Plex Sans","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+html[dir="rtl"]{--display:"IBM Plex Sans Arabic","Sora",system-ui,sans-serif;--body:"IBM Plex Sans Arabic","IBM Plex Sans",system-ui,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.08}
+p{margin:0}
+.wm{font-family:"Sora",sans-serif;font-weight:800;letter-spacing:-.03em;direction:ltr;unicode-bidi:isolate}
+[hidden]{display:none!important}
+.wm i{font-style:normal;color:var(--mint)}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint)}
+html[dir="rtl"] .eyebrow{letter-spacing:0;font-family:var(--body);font-weight:600;font-size:15px}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+
+/* nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--ink) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:28px;padding-block:16px}
+.nav .wm{font-size:24px;text-decoration:none}
+.nav nav{display:flex;gap:24px;margin-inline-start:auto}
+.nav nav a{text-decoration:none;color:var(--muted);font-size:15px;font-weight:500}
+.nav nav a:hover{color:var(--text)}
+.lang{background:transparent;border:1px solid var(--line);color:var(--text);border-radius:999px;padding:7px 14px;font:600 14px var(--body);cursor:pointer}
+.lang:hover{border-color:var(--blue)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:12px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid transparent;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--mint);color:#06281c}
+.btn.ghost{border-color:var(--line);color:var(--text)}
+.btn.ghost:hover{border-color:var(--blue)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 70% at 85% 0%,rgba(74,168,255,.22),transparent 70%),radial-gradient(50% 60% at 0% 100%,rgba(108,90,255,.18),transparent 70%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding-block:88px 96px}
+.hero h1{font-size:clamp(42px,6vw,72px);font-weight:800;letter-spacing:-.035em;margin-top:18px}
+html[dir="rtl"] .hero h1{letter-spacing:0;line-height:1.25;font-weight:700}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero .lead{font-size:19px;color:var(--muted);margin-top:22px;max-width:34em}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+
+.panel{background:var(--deep);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 30px 80px rgba(0,0,0,.35);min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.panel-head b{font-family:var(--display);font-size:17px}
+.tag{font-family:var(--mono);font-size:12px;color:var(--muted);border:1px solid var(--line);padding:3px 9px;border-radius:999px}
+html[dir="rtl"] .tag{font-family:var(--body)}
+.checks{list-style:none;margin:0;padding:0}
+.checks li{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 2px;border-bottom:1px dashed var(--line);font-size:15px}
+.checks li:last-child{border-bottom:0}
+.st{font-family:var(--mono);font-size:12px;font-weight:500;padding:4px 10px;border-radius:999px;white-space:nowrap}
+html[dir="rtl"] .st{font-family:var(--body);font-size:13px}
+.st.pass{color:var(--mint);background:rgba(76,211,165,.12)}
+.st.review{color:var(--amber);background:rgba(255,181,71,.12)}
+.st.action{color:var(--rose);background:rgba(255,122,133,.12)}
+.panel-foot{margin-top:10px;padding-top:14px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+
+/* sections */
+section{padding-block:96px}
+.sec-head{max-width:640px;margin-bottom:48px}
+.sec-head h2{font-size:clamp(32px,4vw,46px);font-weight:700;letter-spacing:-.02em;margin-top:12px}
+html[dir="rtl"] .sec-head h2{letter-spacing:0;line-height:1.3}
+.sec-head p{color:var(--muted);margin-top:16px;font-size:18px}
+
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.svc{background:var(--deep);border:1px solid var(--line);border-radius:18px;padding:28px;min-width:0}
+.svc h3{font-size:22px;font-weight:700}
+.svc p{color:var(--muted);margin-top:10px;font-size:16px}
+.svc .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;margin-bottom:20px;background:rgba(74,168,255,.12);color:var(--blue)}
+.svc.lead-svc{grid-column:span 3;display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:40px;background:linear-gradient(135deg,rgba(76,211,165,.10),rgba(74,168,255,.06)) ,var(--deep);border-color:rgba(76,211,165,.35)}
+.svc.lead-svc .ic{background:rgba(76,211,165,.15);color:var(--mint)}
+.svc.lead-svc h3{font-size:30px}
+.ticks{list-style:none;padding:0;margin:0;display:grid;gap:12px;align-content:center}
+.ticks li{display:flex;gap:12px;align-items:flex-start;font-size:16px}
+.ticks li::before{content:"";flex:none;width:18px;height:18px;margin-top:4px;border-radius:50%;background:var(--mint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2306281c' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12l4 4 8-9'/%3E%3C/svg%3E") center/12px no-repeat}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line)}
+.step{padding:28px 24px 0 0;position:relative}
+html[dir="rtl"] .step{padding:28px 0 0 24px}
+.step::before{content:"";position:absolute;top:-5px;inset-inline-start:0;width:9px;height:9px;border-radius:50%;background:var(--mint)}
+.step .n{font-family:var(--mono);font-size:13px;color:var(--mint)}
+.step h3{font-size:22px;margin-top:8px}
+.step p{color:var(--muted);margin-top:10px;font-size:16px}
+
+.about{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.name-card{background:var(--deep);border:1px solid var(--line);border-radius:20px;padding:36px}
+.name-card .wm{font-size:clamp(44px,6vw,64px);line-height:1}
+.name-card .ar-name{font-family:"IBM Plex Sans Arabic",sans-serif;font-size:30px;font-weight:700;margin-top:10px;color:var(--muted)}
+.name-card .meaning{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:15px}
+.name-card .meaning b{color:var(--text);display:block;font-size:18px}
+.about-text p{font-size:18px;color:var(--muted)}
+.about-text p+p{margin-top:16px}
+.about-text p strong{color:var(--text);font-weight:600}
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.principles div{border-top:2px solid var(--blue);padding-top:12px}
+.principles b{font-family:var(--display);font-size:18px;display:block}
+.principles span{color:var(--muted);font-size:15px}
+
+.posts{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.post{background:var(--deep);border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.post .meta{font-family:var(--mono);font-size:12px;color:var(--blue);letter-spacing:.08em;text-transform:uppercase}
+html[dir="rtl"] .post .meta{font-family:var(--body);letter-spacing:0;font-size:14px}
+.post h3{font-size:24px}
+.post p{color:var(--muted);font-size:16px}
+.post .ref{font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:auto}
+
+.contact{background:linear-gradient(135deg,#123a5c,#1d1a55);border-radius:28px;padding:64px;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+.contact h2{font-size:clamp(32px,4.4vw,50px);font-weight:800;letter-spacing:-.03em}
+html[dir="rtl"] .contact h2{letter-spacing:0;line-height:1.3}
+.contact p{color:#c9d2f2;margin-top:16px;font-size:18px}
+.contact-box{display:grid;gap:12px}
+.email-row{display:flex;gap:8px;align-items:center;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 10px 10px 16px;min-width:0}
+.email-row span{flex:1;min-width:0;overflow-wrap:anywhere;font-family:var(--mono);font-size:15px;user-select:all}
+.email-row button{background:var(--text);color:var(--ink);border:0;border-radius:8px;padding:8px 12px;font:600 14px var(--body);cursor:pointer}
+
+footer{border-top:1px solid var(--line);margin-top:96px}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-block:36px;align-items:flex-end}
+footer .wm{font-size:26px}
+footer .slogan{font-style:italic;color:var(--muted);font-size:15px;font-weight:500}
+html[dir="rtl"] footer .slogan{font-style:normal}
+footer small{color:var(--muted);font-size:13px;max-width:440px;display:block}
+
+@media (max-width:880px){
+  .nav nav{display:none}
+  .nav .lang{margin-inline-start:auto}
+  .hero .wrap{grid-template-columns:1fr;padding-block:56px 64px;gap:40px}
+  .services{grid-template-columns:1fr}
+  .svc.lead-svc{grid-column:auto;grid-template-columns:1fr;gap:24px;padding:28px}
+  .steps{grid-template-columns:1fr 1fr;row-gap:28px}
+  .about{grid-template-columns:1fr;gap:32px}
+  .principles{grid-template-columns:1fr}
+  .posts{grid-template-columns:1fr}
+  .contact{grid-template-columns:1fr;padding:36px 24px}
+  section{padding-block:64px}
+}
+@media (max-width:480px){.steps{grid-template-columns:1fr}.nav .btn{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="mostapha. Microsoft 365 security, cloud and AI specialist. Tech, made clear.">
+<meta property="og:title" content="mostapha. | Tech, made clear.">
+<meta property="og:description" content="Security-first Microsoft 365, migration and Copilot readiness. English and Arabic.">
+<meta property="og:image" content="https://mgelchami.github.io/myApp/mostapha/og-image.png">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="wm" href="#top" aria-label="mostapha. home">mostapha<i>.</i></a>
+    <nav aria-label="Main">
+      <a href="#services" data-i="nav1">Services</a>
+      <a href="#approach" data-i="nav2">Approach</a>
+      <a href="#about" data-i="nav3">About</a>
+      <a href="#insights" data-i="nav4">Insights</a>
+    </nav>
+    <button class="lang" id="lang" type="button">عربي</button>
+    <a class="btn primary" href="#contact" data-i="navcta" style="padding:10px 16px;font-size:15px">Book a review</a>
+  </div>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow" data-i="eyebrow">Microsoft 365 · Security · Cloud · AI</div>
+      <h1 data-i="h1">Secure Microsoft 365, <em>made clear.</em></h1>
+      <p class="lead" data-i="lead">I help organisations lock down Microsoft 365, migrate safely and get ready for Copilot. Every change explained. Every step documented.</p>
+      <div class="cta">
+        <a class="btn primary" href="#contact" data-i="cta1">Book a security review</a>
+        <a class="btn ghost" href="#services" data-i="cta2">See services</a>
+      </div>
+    </div>
+    <aside class="panel" aria-label="Example tenant review">
+      <div class="panel-head"><b data-i="ph">Tenant security review</b><span class="tag" data-i="ptag">Example</span></div>
+      <ul class="checks">
+        <li><span data-i="c1">MFA enforced for all admins</span><span class="st pass" data-i="pass">Pass</span></li>
+        <li><span data-i="c2">Legacy authentication</span><span class="st pass" data-i="blocked">Blocked</span></li>
+        <li><span data-i="c3">Conditional Access baseline</span><span class="st review" data-i="review">Review</span></li>
+        <li><span data-i="c4">SharePoint external sharing</span><span class="st review" data-i="review">Review</span></li>
+        <li><span data-i="c5">Copilot oversharing check</span><span class="st action" data-i="action">Action</span></li>
+        <li><span data-i="c6">Sensitivity labels in Purview</span><span class="st pass" data-i="pass">Pass</span></li>
+      </ul>
+      <p class="panel-foot" data-i="pfoot">Every finding comes with the fix, in plain language.</p>
+    </aside>
+  </div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow" data-i="s-eye">Services</div>
+      <h2 data-i="s-h">Security first. Everything else built on it.</h2>
+      <p data-i="s-p">Four ways I help, all starting from the same question: is your data safe?</p>
+    </div>
+    <div class="services">
+      <article class="svc lead-svc">
+        <div>
+          <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5l8 3v6c0 5-3.4 9-8 10.5C7.4 20.5 4 16.5 4 11.5v-6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
+          <h3 data-i="sv1h">Security &amp; compliance</h3>
+          <p data-i="sv1p">Entra ID, Conditional Access, Defender, Purview and Intune, set up to match how your people actually work.</p>
+        </div>
+        <ul class="ticks">
+          <li data-i="t1">Identity and MFA hardening</li>
+          <li data-i="t2">Data loss prevention and sensitivity labels</li>
+          <li data-i="t3">Device compliance with Intune</li>
+          <li data-i="t4">Secure Score review with a clear action plan</li>
+        </ul>
+      </article>
+      <article class="svc">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h13l-3-3M20 17H7l3 3"/></svg></div>
+        <h3 data-i="sv2h">Microsoft 365 migration</h3>
+        <p data-i="sv2p">Tenant-to-tenant, Exchange, SharePoint and Teams moves, with your security settings carried over, not left behind.</p>
+      </article>
+      <article class="svc">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg></div>
+        <h3 data-i="sv3h">Copilot &amp; AI readiness</h3>
+        <p data-i="sv3p">Find oversharing before Copilot does. Permissions, labels and governance, so AI only sees what it should.</p>
+      </article>
+      <article class="svc">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4z"/><path d="M7 9v5c0 1.7 2.2 3 5 3s5-1.3 5-3V9"/></svg></div>
+        <h3 data-i="sv4h">Training &amp; enablement</h3>
+        <p data-i="sv4p">Clear sessions for IT teams and end users, in English or Arabic.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="approach" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow" data-i="a-eye">Approach</div>
+      <h2 data-i="a-h">Four steps. No surprises.</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3 data-i="st1h">Assess</h3><p data-i="st1p">Review your tenant, identities and data exposure. You get a clear list of findings.</p></div>
+      <div class="step"><div class="n">02</div><h3 data-i="st2h">Plan</h3><p data-i="st2p">Agree priorities by risk and effort. Nothing changes for users without notice.</p></div>
+      <div class="step"><div class="n">03</div><h3 data-i="st3h">Secure</h3><p data-i="st3p">Apply the changes step by step, tested and documented.</p></div>
+      <div class="step"><div class="n">04</div><h3 data-i="st4h">Hand over</h3><p data-i="st4p">Your team gets the documentation and training to run it with confidence.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="padding-top:0">
+  <div class="wrap about">
+    <div class="name-card">
+      <div class="wm">mostapha<i>.</i></div>
+      <div class="ar-name">مصطفى</div>
+      <div class="meaning"><b data-i="mean-b">"The chosen one"</b><span data-i="mean-s">The name behind the brand. The idea: choose clarity.</span></div>
+    </div>
+    <div class="about-text">
+      <div class="eyebrow" data-i="ab-eye">About</div>
+      <h2 style="font-size:clamp(30px,3.6vw,42px);margin:12px 0 22px" data-i="ab-h">Tech, made clear.</h2>
+      <p data-i="ab-p1"><strong>I'm Mostapha, a Microsoft 365 specialist focused on security, cloud and AI.</strong> I work with IT teams that want their tenant secure, their changes planned and their users calm.</p>
+      <p data-i="ab-p2">mostapha. started as a way to share Microsoft 365 updates people can act on. It is growing into a consultancy for organisations that want the same clarity in their own environment.</p>
+      <div class="principles">
+        <div><b data-i="pr1b">Clear</b><span data-i="pr1s">Plain words, no jargon left unexplained.</span></div>
+        <div><b data-i="pr2b">Calm</b><span data-i="pr2s">Security without fear-selling.</span></div>
+        <div><b data-i="pr3b">Practical</b><span data-i="pr3s">Every finding ends with an action.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="insights" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow" data-i="in-eye">Insights</div>
+      <h2 data-i="in-h">Recent updates, explained.</h2>
+      <p data-i="in-p">Short posts on what is changing in Microsoft 365 and what to do about it.</p>
+    </div>
+    <div class="posts">
+      <article class="post">
+        <div class="meta" data-i="po1m">Microsoft Teams · Nov 2026</div>
+        <h3 data-i="po1h">"My chat disappeared." It just moved.</h3>
+        <p data-i="po1p">Teams adds Muted chats and Meeting chats sections to the chat list. What users will see, and the one line to add to your helpdesk script.</p>
+        <span class="ref">MC1269864</span>
+      </article>
+      <article class="post">
+        <div class="meta" data-i="po2m">Admin tip</div>
+        <h3 data-i="po2h">Stop being surprised by Microsoft 365 changes.</h3>
+        <p data-i="po2p">How to use the Message center: where to find it, the filters that matter, and how to sync updates to Planner.</p>
+        <span class="ref">Health › Message center</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:0;padding-bottom:0">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <h2 data-i="co-h">Let's make your Microsoft 365 clear.</h2>
+        <p data-i="co-p">Tell me what you're working on: a security review, a migration or a Copilot rollout.</p>
+      </div>
+      <div class="contact-box">
+        <a class="btn primary" id="li-link" href="https://www.linkedin.com/" target="_blank" rel="noopener" data-i="co-li">Message me on LinkedIn</a>
+        <div class="email-row" id="email-row" hidden><span id="email-text"></span><button type="button" id="copy" data-i="copy">Copy</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><div class="wm">mostapha<i>.</i></div><div class="slogan" data-i="slogan">Tech, made clear.</div></div>
+    <small data-i="legal">© 2026 Mostapha. Independent specialist. Microsoft 365, Teams and Copilot are trademarks of Microsoft; this site is not affiliated with Microsoft.</small>
+  </div>
+</footer>
+
+<script>
+// Edit these two lines with your real details.
+const CONTACT = { linkedin: "https://www.linkedin.com/", email: "" };
+
+const AR = {
+  nav1:"الخدمات", nav2:"المنهجية", nav3:"من أنا", nav4:"مقالات", navcta:"احجز مراجعة",
+  eyebrow:"Microsoft 365 · الأمن · السحابة · الذكاء الاصطناعي",
+  h1:"Microsoft 365 آمن، <em>بوضوح.</em>",
+  lead:"أساعد المؤسسات على تأمين Microsoft 365، والترحيل بأمان، والاستعداد لـ Copilot. كل تغيير مشروح، وكل خطوة موثّقة.",
+  cta1:"احجز مراجعة أمنية", cta2:"اطّلع على الخدمات",
+  ph:"مراجعة أمان المستأجر", ptag:"مثال",
+  c1:"المصادقة متعددة العوامل لكل المسؤولين", c2:"المصادقة القديمة", c3:"أساس الوصول المشروط", c4:"المشاركة الخارجية في SharePoint", c5:"فحص المشاركة الزائدة لـ Copilot", c6:"تسميات الحساسية في Purview",
+  pass:"سليم", blocked:"محظور", review:"مراجعة", action:"إجراء",
+  pfoot:"كل ملاحظة تأتي مع الحل، بلغة بسيطة.",
+  "s-eye":"الخدمات", "s-h":"الأمن أولًا، وكل شيء يُبنى عليه.", "s-p":"أربع طرق للمساعدة، تبدأ كلها بسؤال واحد: هل بياناتك آمنة؟",
+  sv1h:"الأمن والامتثال", sv1p:"Entra ID والوصول المشروط وDefender وPurview وIntune، مُعدّة بما يناسب طريقة عمل فريقك فعلًا.",
+  t1:"تعزيز الهوية والمصادقة متعددة العوامل", t2:"منع فقدان البيانات وتسميات الحساسية", t3:"امتثال الأجهزة عبر Intune", t4:"مراجعة Secure Score مع خطة عمل واضحة",
+  sv2h:"الترحيل إلى Microsoft 365", sv2p:"نقل بين المستأجرين، وExchange وSharePoint وTeams، مع نقل إعدادات الأمان أيضًا وعدم تركها خلفك.",
+  sv3h:"الجاهزية لـ Copilot والذكاء الاصطناعي", sv3p:"اكتشف المشاركة الزائدة قبل أن يكتشفها Copilot. صلاحيات وتسميات وحوكمة، ليرى الذكاء الاصطناعي ما يجب فقط.",
+  sv4h:"التدريب والتمكين", sv4p:"جلسات واضحة لفرق تقنية المعلومات والمستخدمين، بالعربية أو الإنجليزية.",
+  "a-eye":"المنهجية", "a-h":"أربع خطوات. بلا مفاجآت.",
+  st1h:"التقييم", st1p:"مراجعة المستأجر والهويات ومدى انكشاف البيانات. تحصل على قائمة ملاحظات واضحة.",
+  st2h:"التخطيط", st2p:"نتفق على الأولويات حسب المخاطر والجهد. لا تغيير على المستخدمين دون إشعار.",
+  st3h:"التأمين", st3p:"تطبيق التغييرات خطوة بخطوة، مع الاختبار والتوثيق.",
+  st4h:"التسليم", st4p:"يحصل فريقك على التوثيق والتدريب لإدارة البيئة بثقة.",
+  "mean-b":"«المُختار»", "mean-s":"الاسم وراء العلامة. والفكرة: اختر الوضوح.",
+  "ab-eye":"من أنا", "ab-h":"التقنية، بوضوح.",
+  "ab-p1":"<strong>أنا مصطفى، متخصص في Microsoft 365 مع تركيز على الأمن والسحابة والذكاء الاصطناعي.</strong> أعمل مع فرق تقنية المعلومات التي تريد مستأجرًا آمنًا، وتغييرات مخطّطًا لها، ومستخدمين مطمئنين.",
+  "ab-p2":"بدأت mostapha. كمساحة لمشاركة تحديثات Microsoft 365 يمكن العمل بها، وهي تنمو اليوم لتصبح استشارات للمؤسسات التي تريد الوضوح نفسه في بيئتها.",
+  pr1b:"وضوح", pr1s:"كلمات بسيطة، دون مصطلحات بلا شرح.", pr2b:"هدوء", pr2s:"أمن دون تخويف.", pr3b:"عملية", pr3s:"كل ملاحظة تنتهي بإجراء.",
+  "in-eye":"مقالات", "in-h":"آخر التحديثات، بشرح واضح.", "in-p":"منشورات قصيرة عمّا يتغير في Microsoft 365 وما الذي عليك فعله.",
+  po1m:"Microsoft Teams · نوفمبر 2026", po1h:"«اختفت محادثتي». لا، لقد انتقلت فقط.", po1p:"يضيف Teams قسمي المحادثات المكتومة ومحادثات الاجتماعات إلى قائمة المحادثات. ما الذي سيراه المستخدمون، والسطر الذي تضيفه لدليل الدعم الفني.",
+  po2m:"نصيحة للمسؤولين", po2h:"لا تتفاجأ بتغييرات Microsoft 365 بعد اليوم.", po2p:"كيف تستخدم مركز الرسائل: أين تجده، والفلاتر المهمة، وكيف تزامن التحديثات مع Planner.",
+  "co-h":"لنجعل Microsoft 365 لديك واضحًا.", "co-p":"أخبرني بما تعمل عليه: مراجعة أمنية، أو ترحيل، أو إطلاق Copilot.",
+  "co-li":"راسلني على LinkedIn", copy:"نسخ",
+  slogan:"التقنية، بوضوح.",
+  legal:"© 2026 مصطفى. متخصص مستقل. Microsoft 365 وTeams وCopilot علامات تجارية لشركة Microsoft، وهذا الموقع غير تابع لها."
+};
+const EN = {};
+document.querySelectorAll("[data-i]").forEach(el => { if (!(el.dataset.i in EN)) EN[el.dataset.i] = el.innerHTML; });
+
+const btn = document.getElementById("lang");
+function setLang(l){
+  const d = l === "ar" ? AR : EN;
+  document.querySelectorAll("[data-i]").forEach(el => { const v = d[el.dataset.i]; if (v != null) el.innerHTML = v; });
+  document.documentElement.lang = l;
+  document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+  btn.textContent = l === "ar" ? "English" : "عربي";
+  try { localStorage.setItem("lang", l); } catch (e) {}
+}
+btn.addEventListener("click", () => setLang(document.documentElement.lang === "ar" ? "en" : "ar"));
+
+let start = "en";
+try { start = localStorage.getItem("lang") || "en"; } catch (e) {}
+if (location.hash === "#ar") start = "ar";
+if (location.hash === "#en") start = "en";
+setLang(start);
+
+document.getElementById("li-link").href = CONTACT.linkedin;
+if (CONTACT.email) {
+  document.getElementById("email-row").hidden = false;
+  document.getElementById("email-text").textContent = CONTACT.email;
+}
+document.getElementById("copy").addEventListener("click", async (e) => {
+  try { await navigator.clipboard.writeText(CONTACT.email); e.target.textContent = document.documentElement.lang === "ar" ? "تم النسخ" : "Copied"; }
+  catch (err) { const r = document.createRange(); r.selectNodeContents(document.getElementById("email-text")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+});
+</script>
+
+</body>
+</html>

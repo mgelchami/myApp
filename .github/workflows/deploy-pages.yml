@@ -33,6 +33,9 @@ jobs:
       - name: Export static web build
         run: npx expo export -p web
 
+      - name: Add mostapha. brand site
+        run: cp -r website dist/mostapha
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
